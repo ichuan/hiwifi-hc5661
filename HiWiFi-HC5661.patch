@@ -1,7 +1,7 @@
-From c502f01187bfcad67480b2f7f7fd9eb36578e2b9 Mon Sep 17 00:00:00 2001
+From 807331ae392e856fd3a14d178e2bfb0249ceac74 Mon Sep 17 00:00:00 2001
 From: ichuan <iyanchuan@gmail.com>
 Date: Wed, 1 Oct 2014 12:06:45 +0800
-Subject: [PATCH] hc5661 patch
+Subject: [PATCH 1/3] hc5661 patch
 
 ---
  target/linux/ramips/base-files/etc/board.d/01_leds |   5 +
@@ -17,12 +17,12 @@ Subject: [PATCH] hc5661 patch
  create mode 100644 target/linux/ramips/mt7620a/profiles/HiWiFi-HC5661.mk
 
 diff --git a/target/linux/ramips/base-files/etc/board.d/01_leds b/target/linux/ramips/base-files/etc/board.d/01_leds
-index bf646ed..2603d27 100755
+index 26f384d..a7249df 100755
 --- a/target/linux/ramips/base-files/etc/board.d/01_leds
 +++ b/target/linux/ramips/base-files/etc/board.d/01_leds
-@@ -206,6 +206,11 @@ case $board in
- 		set_usb_led "wr8305rt:usb"
- 		set_wifi_led "wr8305rt:wifi"
+@@ -213,6 +213,11 @@ case $board in
+ 	wt1520)
+ 		set_wifi_led "rt2800pci-phy0::radio"
  		;;
 +  hiwifi-hc5661)
 +    ucidef_set_led_default "power" "power" "HC5661:blue:power" "1"
@@ -33,10 +33,10 @@ index bf646ed..2603d27 100755
  	y1s)
  		ucidef_set_led_default "power" "power" "lenovo:blue:power" "1"
 diff --git a/target/linux/ramips/base-files/etc/board.d/02_network b/target/linux/ramips/base-files/etc/board.d/02_network
-index e027b3b..9e08e30 100755
+index 7ecec5f..18b9cbb 100755
 --- a/target/linux/ramips/base-files/etc/board.d/02_network
 +++ b/target/linux/ramips/base-files/etc/board.d/02_network
-@@ -185,6 +185,7 @@ ramips_setup_interfaces()
+@@ -192,6 +192,7 @@ ramips_setup_interfaces()
  		;;
  
  	y1 |\
@@ -44,7 +44,7 @@ index e027b3b..9e08e30 100755
  	y1s)
  		ucidef_set_interfaces_lan_wan "eth0.1" "eth0.2"
  		ucidef_add_switch "switch0" "1" "1"
-@@ -258,6 +259,7 @@ ramips_setup_macs()
+@@ -266,6 +267,7 @@ ramips_setup_macs()
  	psr-680w |\
  	sl-r7205 |\
  	y1 |\
@@ -53,10 +53,10 @@ index e027b3b..9e08e30 100755
  		lan_mac=$(cat /sys/class/net/eth0/address)
  		lan_mac=$(macaddr_setbit_la "$lan_mac")
 diff --git a/target/linux/ramips/base-files/etc/diag.sh b/target/linux/ramips/base-files/etc/diag.sh
-index 9ad7ccb..45fb633 100755
+index aed7d6a..3dc20e2 100755
 --- a/target/linux/ramips/base-files/etc/diag.sh
 +++ b/target/linux/ramips/base-files/etc/diag.sh
-@@ -188,6 +188,9 @@ get_status_led() {
+@@ -194,6 +194,9 @@ get_status_led() {
  	na930)
  		status_led="na930:blue:power"
  		;;
@@ -67,10 +67,10 @@ index 9ad7ccb..45fb633 100755
  	y1s)
  		status_led="lenovo:blue:power"
 diff --git a/target/linux/ramips/base-files/lib/ramips.sh b/target/linux/ramips/base-files/lib/ramips.sh
-index bb42ace..fcaa761 100755
+index 08c5dff..7e65973 100755
 --- a/target/linux/ramips/base-files/lib/ramips.sh
 +++ b/target/linux/ramips/base-files/lib/ramips.sh
-@@ -328,6 +328,9 @@ ramips_board_detect() {
+@@ -334,6 +334,9 @@ ramips_board_detect() {
  	*"ZBT WR8305RT")
  		name="wr8305rt"
  		;;
@@ -81,10 +81,10 @@ index bb42ace..fcaa761 100755
  		name="y1"
  		;;
 diff --git a/target/linux/ramips/base-files/lib/upgrade/platform.sh b/target/linux/ramips/base-files/lib/upgrade/platform.sh
-index 407c218..ec79b60 100755
+index 52f3f0a..99fe279 100755
 --- a/target/linux/ramips/base-files/lib/upgrade/platform.sh
 +++ b/target/linux/ramips/base-files/lib/upgrade/platform.sh
-@@ -98,6 +98,7 @@ platform_check_image() {
+@@ -100,6 +100,7 @@ platform_check_image() {
  	x5 |\
  	x8 |\
  	zbt-wa05 |\
@@ -269,10 +269,10 @@ index 0000000..3fd7ba5
 + };
 +};
 diff --git a/target/linux/ramips/image/Makefile b/target/linux/ramips/image/Makefile
-index 35057e4..ff9fccf 100644
+index f048caf..285dcae 100644
 --- a/target/linux/ramips/image/Makefile
 +++ b/target/linux/ramips/image/Makefile
-@@ -489,7 +489,7 @@ Image/Build/Profile/WCR150GN=$(call BuildFirmware/Default4M/$(1),$(1),wcr150gn,W
+@@ -491,7 +491,7 @@ Image/Build/Profile/WCR150GN=$(call BuildFirmware/Default4M/$(1),$(1),wcr150gn,W
  buffalo_whrg300n_mtd_size=3801088
  define BuildFirmware/WHRG300N/squashfs
  	$(call BuildFirmware/Default4M/$(1),$(1),whr-g300n,WHR-G300N)
@@ -281,7 +281,7 @@ index 35057e4..ff9fccf 100644
  	$(call BuildFirmware/Buffalo,$(1),whr-g300n,whr-g300n)
  	if [ -e "$(call sysupname,$(1),$(2))" ]; then \
  		( \
-@@ -727,6 +727,7 @@ Image/Build/Profile/DIR-810L=$(call BuildFirmware/CustomFlash/$(1),$(1),dir-810l
+@@ -738,6 +738,7 @@ Image/Build/Profile/DIR-810L=$(call BuildFirmware/CustomFlash/$(1),$(1),dir-810l
  na930_mtd_size=20971520
  Image/Build/Profile/NA930=$(call BuildFirmware/CustomFlash/$(1),$(1),na930,NA930,$(na930_mtd_size))
  Image/Build/Profile/MZK-750DHP=$(call BuildFirmware/Default8M/$(1),$(1),mzk-750dhp,MZK-750DHP)
@@ -289,7 +289,7 @@ index 35057e4..ff9fccf 100644
  Image/Build/Profile/Y1=$(call BuildFirmware/Default16M/$(1),$(1),Lenovo-y1,Y1)
  Image/Build/Profile/Y1S=$(call BuildFirmware/Default16M/$(1),$(1),Lenovo-y1s,Y1S)
  
-@@ -743,6 +744,7 @@ define Image/Build/Profile/Default
+@@ -754,6 +755,7 @@ define Image/Build/Profile/Default
  	$(call Image/Build/Profile/WHR1166D,$(1))
  	$(call Image/Build/Profile/MZK-750DHP,$(1))
  	$(call Image/Build/Profile/NA930,$(1))
@@ -323,6 +323,104 @@ index 0000000..ca710b1
 + Default on SD cards and USB storage support.
 +endef
 +$(eval $(call Profile,HiWiFi-HC5661))
+-- 
+1.9.1
+
+
+From 5257cfcedc12b3ba81df227c840199c1cc7a35c1 Mon Sep 17 00:00:00 2001
+From: ichuan <iyanchuan@gmail.com>
+Date: Wed, 15 Oct 2014 20:38:13 +0800
+Subject: [PATCH 2/3] ethernet dst fix
+
+---
+ target/linux/ramips/dts/HiWiFi-HC5661.dts | 32 ++-----------------------------
+ 1 file changed, 2 insertions(+), 30 deletions(-)
+
+diff --git a/target/linux/ramips/dts/HiWiFi-HC5661.dts b/target/linux/ramips/dts/HiWiFi-HC5661.dts
+index 3fd7ba5..929755b 100644
+--- a/target/linux/ramips/dts/HiWiFi-HC5661.dts
++++ b/target/linux/ramips/dts/HiWiFi-HC5661.dts
+@@ -86,38 +86,10 @@
+  };
+ 
+  ethernet@10100000 {
+-   status = "okay";
+-
+    pinctrl-names = "default";
+-   pinctrl-0 = <&rgmii1_pins &rgmii2_pins &mdio_pins>;
+-
++   pinctrl-0 = <&ephy_pins>;
++   mtd-mac-address = <&factory 0x4>;
+    ralink,port-map = "wllll";
+-
+-   port@4 {
+-     status = "okay";
+-     phy-mode = "rgmii";
+-     phy-handle = <&phy4>;
+-   };
+-
+-   port@5 {
+-     status = "okay";
+-     phy-mode = "rgmii";
+-     phy-handle = <&phy5>;
+-   };
+-
+-   mdio-bus {
+-     status = "okay";
+-
+-     phy4: ethernet-phy@4 {
+-       reg = <4>;
+-       phy-mode = "rgmii";
+-     };
+-
+-     phy5: ethernet-phy@5 {
+-       reg = <5>;
+-       phy-mode = "rgmii";
+-     };
+-   };
+  };
+ 
+  wmac@10180000 {
+-- 
+1.9.1
+
+
+From 53174a5de6a12acd40dbcded300a87bfbbfced02 Mon Sep 17 00:00:00 2001
+From: ichuan <iyanchuan@gmail.com>
+Date: Thu, 16 Oct 2014 10:23:43 +0800
+Subject: [PATCH 3/3] leds fix
+
+---
+ target/linux/ramips/base-files/etc/board.d/01_leds | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/target/linux/ramips/base-files/etc/board.d/01_leds b/target/linux/ramips/base-files/etc/board.d/01_leds
+index a7249df..a3163c2 100755
+--- a/target/linux/ramips/base-files/etc/board.d/01_leds
++++ b/target/linux/ramips/base-files/etc/board.d/01_leds
+@@ -213,17 +213,17 @@ case $board in
+ 	wt1520)
+ 		set_wifi_led "rt2800pci-phy0::radio"
+ 		;;
+-  hiwifi-hc5661)
+-    ucidef_set_led_default "power" "power" "HC5661:blue:power" "1"
+-    ucidef_set_led_netdev "internet" "HC5661:blue:internet"
+-    set_wifi_led "HC5661:blue:wifi"
+-    ;;
+ 	y1 |\
+ 	y1s)
+ 		ucidef_set_led_default "power" "power" "lenovo:blue:power" "1"
+ 		set_usb_led "lenovo:blue:usb"
+ 		set_wifi_led "lenovo:blue:wifi"
+ 		;;
++  hiwifi-hc5661)
++    ucidef_set_led_default "power" "power" "HC5661:blue:power" "1"
++    ucidef_set_led_netdev "internet" "HC5661:blue:internet"
++    set_wifi_led "HC5661:blue:wifi"
++    ;;
+ esac
+ 
+ board_config_flush
 -- 
 1.9.1
 
