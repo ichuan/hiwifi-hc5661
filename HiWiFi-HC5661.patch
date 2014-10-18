@@ -1,4 +1,4 @@
-From 807331ae392e856fd3a14d178e2bfb0249ceac74 Mon Sep 17 00:00:00 2001
+From 1bfd2f0f56e55df195c3e144cacdb7999e735346 Mon Sep 17 00:00:00 2001
 From: ichuan <iyanchuan@gmail.com>
 Date: Wed, 1 Oct 2014 12:06:45 +0800
 Subject: [PATCH 1/3] hc5661 patch
@@ -327,7 +327,7 @@ index 0000000..ca710b1
 1.9.1
 
 
-From 5257cfcedc12b3ba81df227c840199c1cc7a35c1 Mon Sep 17 00:00:00 2001
+From 6da4dfc5b85f1ac8b86d607c177114efdc6f051f Mon Sep 17 00:00:00 2001
 From: ichuan <iyanchuan@gmail.com>
 Date: Wed, 15 Oct 2014 20:38:13 +0800
 Subject: [PATCH 2/3] ethernet dst fix
@@ -385,7 +385,7 @@ index 3fd7ba5..929755b 100644
 1.9.1
 
 
-From 53174a5de6a12acd40dbcded300a87bfbbfced02 Mon Sep 17 00:00:00 2001
+From ce1a89814562b41071eb65412a14cddb9562d9a5 Mon Sep 17 00:00:00 2001
 From: ichuan <iyanchuan@gmail.com>
 Date: Thu, 16 Oct 2014 10:23:43 +0800
 Subject: [PATCH 3/3] leds fix
